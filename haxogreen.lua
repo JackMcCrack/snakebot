@@ -9,7 +9,7 @@
 --- init() is called once upon creation of the bot
 -- initialize your data here, and maybe set colors for your snake
 function init()
-    self.colors = { 0xFF00FF, 0x00FF00 }
+    self.colors = { 0x0000FF, 0x000000 }
 end
 
 function Reverse (arr)
@@ -87,7 +87,7 @@ function step()
         -- radius of the segment
         local radius = item.r
  
-        turnto = radius + turnto + 0.25
+        turnto = direction + math.pi
 	end
 
     turnto = turnto + (math.random(-1,1)*0.05)
