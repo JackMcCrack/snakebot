@@ -56,8 +56,8 @@ function step()
         -- direction to the food item, in radians (-math.pi .. +math.pi)
         -- 0 means "straight ahead", math.pi means "right behind you"
         local direction = item.d
-        if (direction < (-1 * math.pi * self.max_step_angle) and (direction > math.pi * self.max_step_angle)) then
-            turnto = 0.0
+        if (direction <= (-1.2 * self.max_step_angle) and direction >= ( 1.2 * self.max_step_angle)) then
+            turnto = 0
         else
             turnto = direction
         end
@@ -98,7 +98,7 @@ function step()
             turnto = direction - (0.25 * math.pi)
         end
 	end
-    log(turnto)
+    log(tostring(turnto))
     turnto = turnto + (math.random(-1,1)*0.1* math.pi)
     return turnto -- this will lead us in a large circle, clockwise.
 end
