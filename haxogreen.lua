@@ -9,7 +9,7 @@
 --- init() is called once upon creation of the bot
 -- initialize your data here, and maybe set colors for your snake
 function init()
-    self.colors = { 0xFF00FF, 0x00FF00 }
+    self.colors = { 0xFF00FF, 0x00FF00, 0x00FF00, 0x00FF00, 0x00FF00, 0xFF0000, 0x00FF00}
 end
 
 function Reverse (arr)
@@ -31,6 +31,7 @@ end
 -- a negative angle means turn left and a positive angle means turn right.
 -- with 0, the snake keeps its current direction.
 function step()
+    
     local turnto = 0
     local dist = 1
     local turbo = false
@@ -55,7 +56,11 @@ function step()
         -- direction to the food item, in radians (-math.pi .. +math.pi)
         -- 0 means "straight ahead", math.pi means "right behind you"
         local direction = item.d
-        turnto = direction
+        if (direction < -0.4 * math.pi) and (direction > 0.4 * math.pi) then
+            turnto = direction/(1/distance)
+        else
+            turnto = direction
+        end
 
         -- mass of the food item. you will grow this amount if you eat it.
         -- realistic values are 0 - 4
@@ -88,17 +93,17 @@ function step()
         local radius = item.r
         
         if direction == 0 then
-            turnto = direction + (random(-1,1) * 0.1)
+            turnto = direction + (random(-1,1) * 0.5* math.pi)
         else
             if direction > 0 then
-                turnto = direction + 0.25
+                turnto = direction + (0.25 * math.pi)
             else
-                turnto = direction - 0.25
+                turnto = direction - (0.25 * math.pi)
             end
         end
 	end
 
-    turnto = turnto + (math.random(-1,1)*0.05)
+    turnto = turnto + (math.random(-1,1)*0.1* math.pi)
     return turnto -- this will lead us in a large circle, clockwise.
 end
 
