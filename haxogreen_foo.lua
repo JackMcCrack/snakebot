@@ -56,7 +56,7 @@ function step()
         -- direction to the food item, in radians (-math.pi .. +math.pi)
         -- 0 means "straight ahead", math.pi means "right behind you"
         local direction = item.d
-        if (direction <= (-1.2 * self.max_step_angle) and direction >= ( 1.2 * self.max_step_angle)) then
+        if (direction <= (-0.8 * self.max_step_angle) and direction >= ( 0.8 * self.max_step_angle)) then
             turnto = 0
         else
             turnto = direction
