@@ -75,8 +75,9 @@ function step()
     -- to find snake segments around you, call:
     local segments = findSegments(500, false)
     if segments[1] ~= nil then
-        if (segments[1].dist-segments[1].r) < 25 then
+        if (segments[1].dist-segments[1].r-self.segment_radius) < 25 then
             turbo = true
+            log(tostring(segments[1].dist) .. " " .. tostring(segments[1].d) .. " " .. tostring(turnto))
         end
         if segments[1].d > 0 then
             turnto = segments[1].d - (0.7 * math.pi)
