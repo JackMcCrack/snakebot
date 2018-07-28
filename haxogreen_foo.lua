@@ -9,7 +9,7 @@
 --- init() is called once upon creation of the bot
 -- initialize your data here, and maybe set colors for your snake
 function init()
-    self.colors = { 0xFF0000, 0x00FF00, 0x00FF00, 0x00FF00, 0x00FF00, 0xFF0000, 0x00FF00}
+    self.colors = { 0x000000, 0x000000,0x000000, 0x000000,0x000000, 0x0F0F0F, 0xFFFFFF, 0x0F0F0F, 0x000000, 0x000000,0x000000, 0x000000,0x000000, 0x0F0F0F, 0xFFFFFF, 0x0F0F0F, 0x000000, 0x000000,0x000000, 0x000000,0x000000, 0x0F0F0F, 0xFFFFFF, 0x0F0F0F, 0x000000, 0x000000,0x000000, 0x000000,0x000000, 0x0F0F0F, 0xFFFFFF, 0x0F0F0F, 0x000000, 0x000000,0x000000, 0x000000,0x000000, 0x0F0F0F, 0xFFFFFF, 0x0F0F0F, }
 end
 
 function Reverse (arr)
@@ -75,7 +75,7 @@ function step()
     -- to find snake segments around you, call:
     local segments = findSegments(500, false)
     if segments[1] ~= nil then
-        if (segments[1].dist-segments[1].r) < 100 then
+        if (segments[1].dist-segments[1].r) < 25 then
             turbo = true
         end
         if segments[1].d > 0 then
