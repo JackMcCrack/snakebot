@@ -75,7 +75,7 @@ function step()
     -- to find snake segments around you, call:
     local segments = findSegments(500, false)
     if segments[1] ~= nil then
-        if segments[1].dist < 300 then
+        if (segments[1].dist-segments[1].r) < 100 then
             turbo = true
         end
         if segments[1].d > 0 then
