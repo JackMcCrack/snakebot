@@ -57,7 +57,7 @@ function step()
         -- 0 means "straight ahead", math.pi means "right behind you"
         local direction = item.d
         if (direction < (-1 * self.max_step_angle) and (direction > self.max_step_angle)) then
-            turnto = direction/4
+            turnto = 0.0
         else
             turnto = direction
         end
@@ -98,7 +98,7 @@ function step()
             turnto = direction - (0.25 * math.pi)
         end
 	end
-
+    log(turnto)
     turnto = turnto + (math.random(-1,1)*0.1* math.pi)
     return turnto -- this will lead us in a large circle, clockwise.
 end
