@@ -9,7 +9,7 @@
 --- init() is called once upon creation of the bot
 -- initialize your data here, and maybe set colors for your snake
 function init()
-    self.colors = { 0xFF00FF, 0x00FF00, 0x00FF00, 0x00FF00, 0x00FF00, 0xFF0000, 0x00FF00}
+    self.colors = { 0xFF0000, 0x00FF00, 0x00FF00, 0x00FF00, 0x00FF00, 0xFF0000, 0x00FF00}
 end
 
 function Reverse (arr)
@@ -40,7 +40,7 @@ function step()
 
     -- your snake needs food to grow
     -- to find food in your head's surroundings, call something like that:
-    local food = findFood(55, 0.3)
+    local food = findFood(255, 0.8)
     -- this will give you all food in maximum distance of 100 around your head,
     -- with a mass of at least 0.8 ordered by food value (largest to lowest)
     
@@ -57,7 +57,7 @@ function step()
         -- 0 means "straight ahead", math.pi means "right behind you"
         local direction = item.d
         local maxturn = 0.05 + self.max_step_angle
-        log(tostring(direction) .. " ; " .. tostring(distance) .. " ; " .. tostring(maxturn) .. " ; " .. tostring(self.max_step_angle))
+        --log(tostring(direction) .. " ; " .. tostring(distance) .. " ; " .. tostring(maxturn) .. " ; " .. tostring(self.max_step_angle))
         if (direction < (-1 * maxturn) or (1 * maxturn) < direction) and distance < 55.0 then
             turnto = direction/3
         else
@@ -73,34 +73,19 @@ function step()
     
     -- you should also look out for your enemies.
     -- to find snake segments around you, call:
-    local segments = findSegments(300, false)
-
-    Reverse(segments)
-    -- in return, you get a list of
-    -- all snake segments nearer than 100 to your head,
-    -- in this case not including your own segments:
-    for i, item in pairs(segments) do
-
-        -- id of the bot the segment belongs to
-        -- (you can compare this to self.id)
-        local bot = item.bot
-
-        -- distance to the center of the segment
-        local distance = item.dist
-
-	-- direction to the segment, in radians (-math.pi .. +math.pi)
-        local direction = item.d
-
-        -- radius of the segment
-        local radius = item.r
-        
-        if direction > 0 then
-            turnto = direction + (0.25 * math.pi)
-        else
-            turnto = direction - (0.25 * math.pi)
+    local segments = findSegments(500, false)
+    if segments[1] ~= nil then
+        if segments[1].dist < 300 then
+            turbo = true
         end
-	end
-    
-    turnto = turnto + (math.random(-1,1)*0.1* math.pi)
-    return turnto -- this will lead us in a large circle, clockwise.
+        if segments[1].d > 0 then
+            turnto = segments[1].d - (0.7 * math.pi)
+        else
+            turnto = segments[1].d + (0.7 * math.pi)
+        end
+        log(tostring(segments[1].dist) .. " " .. tostring(segments[1].d) .. " " .. tostring(turnto))
+    end
+
+    turnto = turnto + (math.random(-1,1)*0.1)
+    return turnto, turbo -- this will lead us in a large circle, clockwise.
 end
